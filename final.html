@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zahro — Tug'ilgan Kuning Muborak! 🎂</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,700;1,300;1,700&family=Space+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0d0810;
+  --rose:#f43f5e;
+  --gold:#fbbf24;
+  --cream:#fdf2f8;
+  --soft:#fce7f3;
+}
+body{
+  background:var(--bg);
+  color:var(--cream);
+  font-family:'Space Mono',monospace;
+  min-height:100vh;
+  display:flex;align-items:center;justify-content:center;
+  padding:2rem 1.5rem;
+  overflow:hidden;
+  text-align:center;
+}
+
+/* Deep pink radial bg */
+body::before{
+  content:'';
+  position:fixed;inset:0;
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(244,63,94,0.18) 0%, transparent 60%),
+    radial-gradient(ellipse at 20% 80%, rgba(251,191,36,0.08) 0%, transparent 50%);
+  pointer-events:none;
+}
+
+/* Confetti */
+.confetti-wrap{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
+.c{
+  position:absolute;
+  border-radius:1px;
+  opacity:0;
+  animation:fall var(--fd,4s) ease-in var(--fde,0s) infinite;
+}
+@keyframes fall{
+  0%{transform:translateY(-30px) rotate(0deg);opacity:1;}
+  100%{transform:translateY(105vh) rotate(var(--rot,540deg));opacity:0;}
+}
+
+/* floating hearts */
+.hearts-wrap{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
+.fh{
+  position:absolute;
+  font-size:var(--fs,1.2rem);
+  opacity:0;
+  animation:floatHeart var(--hd,6s) ease-in-out var(--hde,0s) infinite;
+}
+@keyframes floatHeart{
+  0%{transform:translateY(110vh) scale(0.5);opacity:0}
+  10%{opacity:0.7}
+  90%{opacity:0.3}
+  100%{transform:translateY(-10vh) scale(1);opacity:0}
+}
+
+.wrapper{
+  position:relative;z-index:1;
+  max-width:500px;width:100%;
+  animation:appear 1s cubic-bezier(0.34,1.56,0.64,1) both;
+}
+@keyframes appear{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+
+/* CAKE */
+.cake-wrap{
+  position:relative;
+  display:inline-block;
+  margin-bottom:1.5rem;
+}
+.cake{
+  font-size:5rem;
+  display:block;
+  animation:cakePulse 1.5s ease-in-out infinite;
+  filter:drop-shadow(0 0 25px rgba(244,63,94,0.5));
+}
+@keyframes cakePulse{
+  0%,100%{transform:scale(1) rotate(-3deg);}
+  50%{transform:scale(1.08) rotate(3deg);}
+}
+.sparkles{
+  position:absolute;inset:-20px;
+  pointer-events:none;
+}
+.sp{
+  position:absolute;
+  font-size:1rem;
+  animation:spFloat var(--sd,2s) ease-in-out var(--sde,0s) infinite;
+}
+@keyframes spFloat{
+  0%,100%{transform:translate(0,0) scale(0.8);opacity:0.4}
+  50%{transform:translate(var(--sx,5px),var(--sy,-8px)) scale(1.2);opacity:1}
+}
+
+/* name */
+.name-line{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(2.5rem,8vw,4rem);
+  font-weight:300;
+  font-style:italic;
+  background:linear-gradient(135deg,var(--rose),var(--gold),#f9a8d4,var(--rose));
+  background-size:300%;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  animation:shimmer 4s linear infinite;
+  line-height:1.1;margin-bottom:0.2rem;
+}
+@keyframes shimmer{0%{background-position:0%}100%{background-position:300%}}
+
+.date-line{
+  font-size:0.68rem;letter-spacing:0.3em;color:var(--gold);
+  text-transform:uppercase;margin-bottom:2rem;
+}
+
+/* divider */
+.divider{
+  width:100%;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(244,63,94,0.4),transparent);
+  margin:1.5rem auto;
+}
+
+/* message */
+.msg-wrap{
+  background:rgba(255,255,255,0.03);
+  border:1px solid rgba(244,63,94,0.15);
+  border-radius:4px;
+  padding:1.8rem 1.5rem;
+  margin-bottom:1.5rem;
+  position:relative;
+}
+.msg-wrap::before,.msg-wrap::after{
+  font-family:'Cormorant Garamond',serif;
+  font-size:3.5rem;color:var(--rose);opacity:0.2;
+  position:absolute;line-height:1;
+}
+.msg-wrap::before{content:'"';top:-0.3rem;left:0.6rem;}
+.msg-wrap::after{content:'"';bottom:-1.2rem;right:0.6rem;}
+
+.msg{
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic;
+  font-size:clamp(1.05rem,3vw,1.25rem);
+  line-height:1.85;color:#fce7f3;
+}
+
+.sender{
+  font-size:0.72rem;letter-spacing:0.15em;
+  color:var(--rose);margin-top:0.8rem;
+}
+
+/* flowers row */
+.flowers{
+  font-size:1.8rem;letter-spacing:0.3rem;
+  margin:1.5rem 0 0.5rem;
+  animation:bloom 2.5s ease-in-out infinite alternate;
+}
+@keyframes bloom{
+  0%{transform:scale(0.95);filter:brightness(0.85);}
+  100%{transform:scale(1.05);filter:brightness(1.15);}
+}
+
+.tagline{font-size:0.65rem;letter-spacing:0.25em;color:#7c3d52;text-transform:uppercase;}
+</style>
+</head>
+<body>
+
+<!-- Confetti -->
+<div class="confetti-wrap" id="cw"></div>
+<!-- Floating hearts -->
+<div class="hearts-wrap" id="hw"></div>
+
+<div class="wrapper">
+
+  <div class="cake-wrap">
+    <span class="cake">🎂</span>
+    <div class="sparkles">
+      <span class="sp" style="top:0;left:10%;--sx:5px;--sy:-10px;--sd:2.1s;--sde:0s">✨</span>
+      <span class="sp" style="top:5%;right:10%;--sx:-5px;--sy:-8px;--sd:1.8s;--sde:0.3s">⭐</span>
+      <span class="sp" style="bottom:15%;left:5%;--sx:8px;--sy:5px;--sd:2.4s;--sde:0.6s">🌟</span>
+      <span class="sp" style="bottom:10%;right:5%;--sx:-6px;--sy:6px;--sd:2s;--sde:0.9s">✨</span>
+    </div>
+  </div>
+
+  <p class="name-line">Zahro</p>
+  <p class="date-line">1 — iyun — sening kuning ✦</p>
+
+  <div class="divider"></div>
+
+  <div class="msg-wrap">
+    <p class="msg">
+      Sen hayotga kelgan kun — dunyo boyidi. 
+      Bir jumboq emas, mingta jumboqni yechadigan inson — o'zing. 
+      Baxt, nur va sevgi sening yo'lingda doim bo'lsin. 🌸
+    </p>
+    <p class="sender">— Seni sog'inib, uzoqdan yubordim 💕</p>
+  </div>
+
+  <div class="flowers">🌹🌸🌺🌷🌼</div>
+  <p class="tagline">Tug'ilgan kuning muborak, azizim</p>
+
+</div>
+
+<script>
+// Confetti
+const cw = document.getElementById('cw');
+const colors = ['#f43f5e','#fbbf24','#a78bfa','#34d399','#f97316','#e879f9','#fff'];
+for(let i=0;i<90;i++){
+  const c=document.createElement('div');
+  c.className='c';
+  const cl=colors[Math.floor(Math.random()*colors.length)];
+  const sz=5+Math.random()*7;
+  c.style.cssText=`
+    left:${Math.random()*100}%;
+    width:${sz}px;height:${sz}px;
+    background:${cl};
+    border-radius:${Math.random()<0.5?'50%':'2px'};
+    --fd:${3+Math.random()*4}s;
+    --fde:${Math.random()*3}s;
+    --rot:${Math.random()<0.5?'':'-'}${360+Math.floor(Math.random()*360)}deg;
+  `;
+  cw.appendChild(c);
+}
+
+// Floating hearts
+const hw=document.getElementById('hw');
+const hEmojis=['❤️','🩷','💕','💗','💝','🌸','✨'];
+for(let i=0;i<20;i++){
+  const h=document.createElement('div');
+  h.className='fh';
+  h.textContent=hEmojis[Math.floor(Math.random()*hEmojis.length)];
+  h.style.cssText=`
+    left:${Math.random()*100}%;
+    --fs:${0.8+Math.random()*1.2}rem;
+    --hd:${5+Math.random()*6}s;
+    --hde:${Math.random()*5}s;
+  `;
+  hw.appendChild(h);
+}
+</script>
+</body>
+</html>

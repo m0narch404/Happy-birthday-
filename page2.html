@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jumboq 2 — Shimoliy Nur 🌌</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,200;0,700;1,200;1,700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#050d1a;
+  --green:#4ade80;
+  --purple:#c084fc;
+  --teal:#2dd4bf;
+  --text:#e2e8f0;
+  --muted:#475569;
+  --card:rgba(255,255,255,0.04);
+}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Space Mono',monospace;
+  min-height:100vh;
+  display:flex;align-items:center;justify-content:center;
+  padding:1.5rem;
+  overflow-x:hidden;
+}
+
+/* Aurora animated bg */
+.aurora{
+  position:fixed;inset:0;
+  pointer-events:none;z-index:0;
+  overflow:hidden;
+}
+.aurora-band{
+  position:absolute;
+  width:200%;
+  height:300px;
+  border-radius:50%;
+  filter:blur(60px);
+  opacity:0.15;
+}
+.ab1{
+  background:linear-gradient(90deg,transparent,#4ade80,transparent);
+  top:10%;left:-50%;
+  animation:aurora1 8s ease-in-out infinite alternate;
+}
+.ab2{
+  background:linear-gradient(90deg,transparent,#c084fc,#2dd4bf,transparent);
+  top:20%;left:-30%;
+  animation:aurora2 12s ease-in-out infinite alternate;
+  opacity:0.12;
+}
+.ab3{
+  background:linear-gradient(90deg,transparent,#2dd4bf,transparent);
+  top:5%;left:-20%;
+  animation:aurora3 10s ease-in-out infinite alternate;
+  opacity:0.1;
+}
+@keyframes aurora1{0%{transform:translateX(0) scaleY(1)}100%{transform:translateX(20%) scaleY(1.5)}}
+@keyframes aurora2{0%{transform:translateX(0) scaleY(0.8)}100%{transform:translateX(-15%) scaleY(1.3)}}
+@keyframes aurora3{0%{transform:translateX(0)}100%{transform:translateX(25%)}}
+
+.wrapper{
+  position:relative;z-index:1;
+  max-width:560px;width:100%;
+}
+
+.step-badge{
+  display:inline-flex;align-items:center;gap:0.5rem;
+  background:rgba(74,222,128,0.08);
+  border:1px solid rgba(74,222,128,0.2);
+  border-radius:2px;
+  padding:0.3rem 0.8rem;
+  font-size:0.65rem;
+  letter-spacing:0.2em;
+  text-transform:uppercase;
+  color:var(--green);
+  margin-bottom:1.5rem;
+}
+.step-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:blink 1.2s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.2}}
+
+h1{
+  font-family:'Fraunces',serif;
+  font-size:clamp(1.8rem,5vw,2.8rem);
+  font-weight:200;
+  line-height:1.2;
+  margin-bottom:0.4rem;
+}
+h1 strong{font-weight:700;color:var(--green);}
+
+.subtitle{
+  font-size:0.68rem;letter-spacing:0.2em;color:var(--muted);
+  text-transform:uppercase;margin-bottom:2rem;
+}
+
+.img-frame{
+  border:1px solid rgba(74,222,128,0.15);
+  border-radius:3px;overflow:hidden;
+  margin-bottom:0.5rem;cursor:pointer;
+  transition:border-color 0.3s;
+}
+.img-frame:hover{border-color:rgba(74,222,128,0.4);}
+.img-frame img{
+  width:100%;height:220px;object-fit:cover;display:block;
+  filter:saturate(1.1);transition:transform 0.5s;
+}
+.img-frame:hover img{transform:scale(1.03);}
+.img-overlay{
+  position:absolute;bottom:0;left:0;right:0;
+  background:linear-gradient(transparent,rgba(5,13,26,0.9));
+  padding:1rem 0.8rem 0.6rem;
+  font-size:0.65rem;color:#94a3b8;letter-spacing:0.1em;
+}
+.img-wrap{position:relative;}
+.img-source{font-size:0.6rem;color:var(--muted);margin-bottom:1.5rem;text-align:right;}
+.img-source a{color:var(--green);text-decoration:none;}
+
+.clue-card{
+  background:var(--card);
+  border:1px solid rgba(255,255,255,0.07);
+  border-radius:3px;padding:1.5rem;margin-bottom:1.5rem;
+}
+.clue-icon{font-size:2rem;margin-bottom:0.8rem;display:block;}
+.clue-text{
+  font-family:'Fraunces',serif;font-style:italic;
+  font-size:clamp(1rem,2.5vw,1.2rem);
+  line-height:1.7;color:#cbd5e1;margin-bottom:0.5rem;
+}
+.clue-hint{font-size:0.68rem;color:var(--muted);}
+
+.options{display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;margin-bottom:1rem;}
+.opt{
+  background:rgba(255,255,255,0.03);
+  border:1px solid rgba(255,255,255,0.1);
+  color:var(--text);padding:0.85rem 0.6rem;
+  font-family:'Space Mono',monospace;font-size:0.78rem;
+  border-radius:2px;cursor:pointer;transition:all 0.2s;text-align:center;line-height:1.4;
+}
+.opt:hover{border-color:var(--green);background:rgba(74,222,128,0.07);}
+.opt.correct{border-color:#fbbf24;background:rgba(251,191,36,0.1);color:#fbbf24;}
+.opt.wrong{border-color:#f87171;background:rgba(248,113,113,0.08);color:#f87171;}
+
+.feedback{min-height:1.4em;font-size:0.78rem;color:#fbbf24;margin-bottom:1rem;transition:all 0.3s;text-align:center;}
+.feedback.err{color:#f87171;}
+
+.dots{display:flex;gap:0.5rem;justify-content:center;margin-top:2rem;}
+.dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.15);transition:all 0.3s;}
+.dot.done{background:#fbbf24;}
+.dot.active{background:var(--green);box-shadow:0 0 8px var(--green);}
+
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.shake{animation:shake 0.35s ease;}
+</style>
+</head>
+<body>
+<div class="aurora">
+  <div class="aurora-band ab1"></div>
+  <div class="aurora-band ab2"></div>
+  <div class="aurora-band ab3"></div>
+</div>
+
+<div class="wrapper">
+  <div class="step-badge"><span class="step-dot"></span> Jumboq 2 / 3</div>
+  
+  <h1>Osmondagi<br><strong>yashil raqs</strong> —<br>tabiatning sehri</h1>
+  <p class="subtitle">Shimoliy nurlar haqida bilasizmi?</p>
+
+  <div class="img-wrap">
+    <div class="img-frame" onclick="window.open('https://en.wikipedia.org/wiki/Aurora','_blank')">
+      <img 
+        src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Polarlicht_2.jpg/1280px-Polarlicht_2.jpg"
+        alt="Northern lights aurora"
+        onerror="this.src='https://images.unsplash.com/photo-1531366936337-7c912a4589a7?w=800&q=80'"
+      >
+      <div class="img-overlay">Aurora Borealis — Shimoliy muz dengizi yaqinida, Norvegiya</div>
+    </div>
+  </div>
+  <p class="img-source">📷 Rasmni bosib to'liq ko'ring · <a href="https://en.wikipedia.org/wiki/Aurora" target="_blank">Wikipedia →</a></p>
+
+  <div class="clue-card">
+    <span class="clue-icon">🌌</span>
+    <p class="clue-text">
+      Aurora Borealis — Shimoliy nurlar. Ular osmonda paydo bo'ladi va raqsga tushadi. 
+      Lekin jumboq: <strong>Bu hodisa qaysi sayyorada ham kuzatilgan?</strong>
+    </p>
+    <p class="clue-hint">💡 Maslahat: Quyosh sistemasining eng katta sayyorasini o'ylang</p>
+  </div>
+
+  <div class="options" id="opts">
+    <button class="opt">🔴 Mars</button>
+    <button class="opt">🟠 Yupiter</button>
+    <button class="opt">💙 Saturn</button>
+    <button class="opt">🟤 Merkuriy</button>
+  </div>
+
+  <p class="feedback" id="fb"></p>
+
+  <div class="dots">
+    <div class="dot done"></div>
+    <div class="dot active"></div>
+    <div class="dot" id="d3"></div>
+    <div class="dot" id="d4"></div>
+  </div>
+</div>
+
+<script>
+const NEXT = 'page3.html';
+let done = false;
+const buttons = document.querySelectorAll('.opt');
+const correct = [false, true, true, false]; // Jupiter & Saturn both correct
+// Actually let's pick Jupiter as THE answer
+buttons[0].onclick = () => answer(buttons[0], false);
+buttons[1].onclick = () => answer(buttons[1], true);
+buttons[2].onclick = () => answer(buttons[2], true); // Saturn also correct
+buttons[3].onclick = () => answer(buttons[3], false);
+
+function answer(btn, isCorrect) {
+  if (done) return;
+  buttons.forEach(b => b.style.pointerEvents = 'none');
+  if (isCorrect) {
+    btn.classList.add('correct');
+    document.getElementById('fb').textContent = '✨ To\'g\'ri! Yupiter va Saturn da ham Aurora kuzatilgan!';
+    done = true;
+    document.getElementById('d3').classList.add('active');
+    setTimeout(() => { window.location.href = NEXT; }, 2200);
+  } else {
+    btn.classList.add('wrong');
+    btn.classList.add('shake');
+    document.getElementById('fb').textContent = '❌ Yo\'q... Quyosh sistemasining gigantini o\'yla!';
+    document.getElementById('fb').classList.add('err');
+    setTimeout(() => {
+      btn.classList.remove('wrong','shake');
+      buttons.forEach(b => b.style.pointerEvents = '');
+      document.getElementById('fb').textContent = '';
+      document.getElementById('fb').classList.remove('err');
+    }, 900);
+  }
+}
+</script>
+</body>
+</html>
